@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Dashboard</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", system-ui, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #020617, #0f172a);
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 80px;
+    }
+
+    .dashboard {
+      width: 100%;
+      max-width: 900px;
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 34px;
+      color: #60a5fa;
+      margin-bottom: 35px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: #020617;
+      border: 1px solid #2563eb;
+      border-radius: 18px;
+      padding: 28px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #bfdbfe;
+      text-decoration: none;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 120px;
+    }
+
+    .card:hover {
+      transform: translateY(-6px) scale(1.02);
+      background: rgba(37, 99, 235, 0.15);
+      border-color: #3b82f6;
+      box-shadow: 0 25px 55px rgba(0,0,0,0.9);
+    }
+
+    .logout {
+      display: block;
+      text-align: center;
+      margin-top: 40px;
+      color: #f87171;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .logout:hover {
+      color: #ef4444;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 28px;
+      }
+      .card {
+        font-size: 18px;
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="dashboard">
+  <h1>🚀 Dashboard</h1>
+
+  <div class="grid">
+    <a href="/teacher" class="card">
+      👩‍🏫 AI Teaching Agent
+    </a>
+
+    <a href="/health" class="card">
+      🏥 AI Health Bot
+    </a>
+
+    <a href="/diet" class="card">
+      🥗 AI Diet Scheduler
+    </a>
+
+    <a href="/crop" class="card">
+      🌾 AI Crop Recommender
+    </a>
+
+  </div>
+
+  <a href="/logout" class="logout">Logout</a>
+</div>
+
+</body>
+</html>

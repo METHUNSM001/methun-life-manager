@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Diet Scheduler</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #020617, #0f172a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e5e7eb;
+      padding: 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 900px;
+      background: #020617;
+      border: 1px solid #2563eb;
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.85);
+    }
+
+    h2 {
+      text-align: center;
+      color: #60a5fa;
+      font-size: 32px;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #bfdbfe;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #93c5fd;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      background: #000;
+      border: 1px solid #2563eb;
+      border-radius: 10px;
+      color: white;
+      margin-bottom: 16px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 2px rgba(59,130,246,0.35);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(to right, #2563eb, #1e40af);
+      color: white;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      background: linear-gradient(to right, #1d4ed8, #1e3a8a);
+    }
+
+    .response {
+      margin-top: 25px;
+      padding: 22px;
+      background: rgba(30, 64, 175, 0.25);
+      border: 1px solid #2563eb;
+      border-radius: 14px;
+      line-height: 1.7;
+    }
+
+    .response h1,
+    .response h2,
+    .response h3 {
+      color: #bfdbfe;
+    }
+
+    .response ul {
+      padding-left: 20px;
+    }
+
+    .response code {
+      background: #020617;
+      padding: 4px 6px;
+      border-radius: 6px;
+      color: #93c5fd;
+    }
+
+    .response pre {
+      background: #020617;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid #1e40af;
+      overflow-x: auto;
+    }
+
+    @media (max-width: 600px) {
+      h2 { font-size: 26px; }
+      .card { padding: 22px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<form method="POST" class="card">
+
+  <h2>🥗 AI Diet Scheduler</h2>
+  <p class="subtitle">Personalized diet guidance (general & safe)</p>
+
+  <div class="grid">
+    <div>
+      <label>Age</label>
+      <input type="number" name="age" required>
+    </div>
+
+    <div>
+      <label>Gender</label>
+      <select name="gender">
+        <option>Male</option>
+        <option>Female</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Height (cm)</label>
+      <input type="number" name="height" required>
+    </div>
+
+    <div>
+      <label>Weight (kg)</label>
+      <input type="number" name="weight" required>
+    </div>
+  </div>
+
+  <label>Native Place / Region</label>
+  <select name="region">
+    <option>South India</option>
+    <option>North India</option>
+    <option>East India</option>
+    <option>West India</option>
+  </select>
+
+  <label>Goal</label>
+  <select name="goal">
+    <option>Weight Loss</option>
+    <option>Weight Gain</option>
+    <option>Muscle Gain</option>
+    <option>Maintenance</option>
+  </select>
+
+  <label>Diet Preference</label>
+  <select name="diet">
+    <option>Vegetarian</option>
+    <option>Eggetarian</option>
+    <option>Non-Vegetarian</option>
+  </select>
+
+  <button type="submit">🍽️ Generate Diet Plan</button>
+
+  {% if response %}
+  <div class="response">
+    {{ response | safe }}
+  </div>
+  {% endif %}
+
+</form>
+
+</body>
+</html>

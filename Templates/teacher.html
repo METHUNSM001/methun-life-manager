@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Teacher</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #020617, #0f172a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e5e7eb;
+      padding: 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 900px;
+      background: #020617;
+      border: 1px solid #1e40af;
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 32px;
+      color: #60a5fa;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #93c5fd;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      background: #000;
+      border: 1px solid #1e40af;
+      border-radius: 10px;
+      color: #fff;
+      outline: none;
+      margin-bottom: 18px;
+      transition: 0.3s;
+      resize: vertical;
+    }
+
+    textarea:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.35);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(to right, #2563eb, #1e40af);
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #1d4ed8, #1e3a8a);
+      transform: translateY(-1px);
+    }
+
+    .response {
+      margin-top: 28px;
+      padding: 22px;
+      background: rgba(30, 64, 175, 0.25);
+      border: 1px solid #2563eb;
+      border-radius: 14px;
+      line-height: 1.7;
+    }
+
+    .response h1,
+    .response h2,
+    .response h3 {
+      color: #bfdbfe;
+    }
+
+    .response ul {
+      padding-left: 20px;
+    }
+
+    .response code {
+      background: #020617;
+      padding: 4px 6px;
+      border-radius: 6px;
+      color: #93c5fd;
+    }
+
+    .response pre {
+      background: #020617;
+      padding: 14px;
+      border-radius: 12px;
+      overflow-x: auto;
+      border: 1px solid #1e40af;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 22px;
+      }
+
+      h2 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<form method="POST" class="card">
+
+  <h2>👩‍🏫 AI Math Teacher</h2>
+
+  <label>📘 Enter Question / Problem</label>
+  <textarea 
+    name="topic" 
+    rows="4" 
+    placeholder="e.g. Solve 2x² - 5x + 3 = 0, Find derivative of sin(x), Explain integration, etc."
+    required></textarea>
+
+  <button type="submit">🧠 Solve & Explain</button>
+
+  <!-- ✅ RESPONSE SHOWS ONLY AFTER SUBMIT -->
+  {% if response %}
+  <div class="response">
+    {{ response | safe }}
+  </div>
+  {% endif %}
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | AI Platform</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", system-ui, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #020617, #0f172a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e5e7eb;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background: #020617;
+      border: 1px solid #2563eb;
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.85);
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      color: #60a5fa;
+      margin-bottom: 25px;
+    }
+
+    .error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid #ef4444;
+      color: #fecaca;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 16px;
+      background: #000;
+      border: 1px solid #1e40af;
+      border-radius: 10px;
+      color: white;
+      outline: none;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    input::placeholder {
+      color: #9ca3af;
+    }
+
+    input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 2px rgba(59,130,246,0.3);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(to right, #2563eb, #1e40af);
+      color: white;
+      transition: 0.3s;
+      margin-top: 8px;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      background: linear-gradient(to right, #1d4ed8, #1e3a8a);
+    }
+
+    .footer-text {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 14px;
+      color: #c7d2fe;
+    }
+
+    .footer-text a {
+      color: #60a5fa;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer-text a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+<form method="POST" class="login-card">
+  <h2>🔐 Login</h2>
+
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+
+  <input name="email" placeholder="Email" required>
+  <input name="password" type="password" placeholder="Password" required>
+
+  <button type="submit">Login</button>
+
+  <p class="footer-text">
+    No account?
+    <a href="/register">Register</a>
+  </p>
+</form>
+
+</body>
+</html>
