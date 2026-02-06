@@ -1,8 +1,40 @@
-flask
-pandas
-python-dotenv
-markdown
-pillow
-groq
-openpyxl
-vercel-wsgi
+# ===========================
+# LIFE MANAGER - Requirements
+# ===========================
+
+# Web Framework
+Flask==2.3.3
+Werkzeug==2.3.7
+Jinja2==3.1.2
+
+# Data & Database
+pandas==2.0.3
+openpyxl==3.10.10
+
+# API & AI
+groq==0.4.1
+
+# Utilities
+python-dotenv==1.0.0
+markdown==3.4.1
+Pillow==10.0.0
+
+# Deployment
+vercel-wsgi==0.2.11
+
+# Optional: For production server (gunicorn)
+# gunicorn==21.2.0
+
+# Optional: For database (if upgrading from Excel)
+# SQLAlchemy==2.0.20
+# psycopg2-binary==2.9.7  # PostgreSQL
+# pymongo==4.4.1           # MongoDB
+
+# Optional: For better security
+# bcrypt==4.0.1
+# PyJWT==2.8.0
+# cryptography==41.0.3
+
+# Optional: For real-time features
+# python-socketio==5.9.0
+# python-engineio==4.7.1

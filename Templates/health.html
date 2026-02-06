@@ -20,7 +20,7 @@ body {
 
 .card {
   width: 100%;
-  max-width: 1000px;
+  max-width: 1100px;
   background: #020617;
   border: 1px solid #1e40af;
   border-radius: 20px;
@@ -34,19 +34,26 @@ h2 {
   font-size: 34px;
 }
 
+h3 {
+  color: #93c5fd;
+  margin-top: 20px;
+  border-bottom: 1px solid #1e40af;
+  padding-bottom: 10px;
+}
+
 .warning {
   text-align: center;
   color: #facc15;
   margin-bottom: 25px;
+  font-weight: 600;
 }
 
 .section {
-  margin-top: 25px;
+  margin-top: 20px;
   padding-top: 15px;
-  border-top: 1px solid #1e3a8a;
 }
 
-label { font-weight: 600; color: #93c5fd; }
+label { font-weight: 600; color: #93c5fd; display: block; margin-bottom: 8px; }
 
 input, textarea, select {
   width: 100%;
@@ -58,7 +65,9 @@ input, textarea, select {
   margin-bottom: 14px;
 }
 
-.grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 12px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 12px; }
+
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 
 button {
   width: 100%;
@@ -70,14 +79,18 @@ button {
   cursor: pointer;
   background: linear-gradient(to right,#2563eb,#1e40af);
   color: white;
+  margin-top: 20px;
 }
 
-.emergency { background: rgba(220,38,38,0.25); border: 1px solid #dc2626; padding: 16px; border-radius: 12px; color: #fecaca; font-weight: bold; }
+button:hover { background: linear-gradient(to right,#3b82f6,#2563eb); }
 
-.risk { padding: 12px; border-radius: 8px; margin-top: 10px; text-align:center; font-weight:bold; }
-.low { background: rgba(34,197,94,0.2); color:#4ade80; }
-.medium { background: rgba(234,179,8,0.2); color:#facc15; }
-.high { background: rgba(220,38,38,0.2); color:#f87171; }
+.emergency { background: rgba(220,38,38,0.3); border: 2px solid #dc2626; padding: 16px; border-radius: 12px; color: #fecaca; font-weight: bold; margin-top: 20px; text-align: center; }
+
+.risk { padding: 14px; border-radius: 8px; margin-top: 15px; text-align:center; font-weight:bold; }
+.low { background: rgba(34,197,94,0.2); border: 1px solid #22c55e; color:#4ade80; }
+.medium { background: rgba(234,179,8,0.2); border: 1px solid #eab308; color:#facc15; }
+.high { background: rgba(220,38,38,0.2); border: 1px solid #dc2626; color:#f87171; }
+.critical { background: rgba(220,38,38,0.4); border: 2px solid #991b1b; color:#fca5a5; }
 
 .response {
   margin-top: 25px;
@@ -85,8 +98,17 @@ button {
   background: rgba(30,64,175,0.25);
   border: 1px solid #2563eb;
   border-radius: 14px;
-  line-height: 1.7;
+  line-height: 1.8;
+  max-height: 600px;
+  overflow-y: auto;
 }
+
+.checkbox-group { display: flex; flex-direction: column; gap: 8px; }
+.checkbox-group label { display: flex; align-items: center; margin-bottom: 0; }
+.checkbox-group input[type="checkbox"] { width: auto; margin-right: 10px; margin-bottom: 0; }
+
+a { color: #60a5fa; text-decoration: none; }
+a:hover { text-decoration: underline; }
 </style>
 </head>
 
@@ -95,82 +117,109 @@ button {
 <form method="POST" class="card">
 
 <h2>🏥 AI Health Assistant PRO</h2>
-<p class="warning">⚠️ For guidance only — not a medical diagnosis.</p>
+<p class="warning">⚠️ For guidance only — not a medical diagnosis. Always consult a real doctor.</p>
 
 <!-- BASIC INFO -->
 <div class="section">
+<h3>👤 Personal Information</h3>
 <label>Age</label>
-<input type="number" name="age">
+<input type="number" name="age" required>
 
-<label>Gender</label>
-<select name="gender"><option>Male</option><option>Female</option><option>Other</option></select>
+<label>Symptom Duration</label>
+<input type="text" name="duration" placeholder="e.g., 2 days, 1 week" required>
+
+<label>Symptom Severity</label>
+<select name="severity" required>
+  <option value="mild">Mild (Uncomfortable but manageable)</option>
+  <option value="moderate">Moderate (Interfering with daily activities)</option>
+  <option value="severe">Severe (Unable to perform activities)</option>
+</select>
 </div>
 
 <!-- VITAL SIGNS -->
 <div class="section">
 <h3>❤️ Vital Signs</h3>
-<div class="grid">
-<input name="temperature" placeholder="Temperature °C">
-<input name="pulse" placeholder="Pulse rate / min">
-<input name="bp" placeholder="Blood Pressure (120/80)">
+<div class="grid-2">
+<div>
+<label>Temperature (°C)</label>
+<input type="number" step="0.1" name="temperature" placeholder="e.g., 98.6" required>
+</div>
+<div>
+<label>Blood Pressure</label>
+<select name="blood_pressure" required>
+  <option value="Normal">Normal (120/80)</option>
+  <option value="Elevated">Elevated (120-139/80-89)</option>
+  <option value="High">High (140/90+)</option>
+  <option value="Very High">Very High (180/120+)</option>
+</select>
+</div>
 </div>
 </div>
 
 <!-- SYMPTOMS -->
 <div class="section">
-<h3>🤒 Symptoms</h3>
-<div class="grid">
+<h3>🤒 Symptoms (Select All That Apply)</h3>
+<div class="checkbox-group">
 <label><input type="checkbox" name="symptoms" value="Fever"> Fever</label>
-<label><input type="checkbox" name="symptoms" value="Cold"> Cold</label>
+<label><input type="checkbox" name="symptoms" value="Cold"> Cold/Runny Nose</label>
 <label><input type="checkbox" name="symptoms" value="Cough"> Cough</label>
-<label><input type="checkbox" name="symptoms" value="Breathlessness"> Breathlessness</label>
+<label><input type="checkbox" name="symptoms" value="Breathlessness"> Breathlessness/Difficulty Breathing</label>
 <label><input type="checkbox" name="symptoms" value="Headache"> Headache</label>
+<label><input type="checkbox" name="symptoms" value="Severe Headache"> Severe Headache (Unbearable)</label>
 <label><input type="checkbox" name="symptoms" value="Chest Pain"> Chest Pain</label>
-<label><input type="checkbox" name="symptoms" value="Vomiting"> Vomiting</label>
-<label><input type="checkbox" name="symptoms" value="Weakness"> Weakness</label>
+<label><input type="checkbox" name="symptoms" value="Vomiting"> Vomiting/Nausea</label>
+<label><input type="checkbox" name="symptoms" value="Diarrhea"> Diarrhea</label>
+<label><input type="checkbox" name="symptoms" value="Weakness"> Weakness/Fatigue</label>
+<label><input type="checkbox" name="symptoms" value="Body Ache"> Body Ache</label>
+<label><input type="checkbox" name="symptoms" value="Sore Throat"> Sore Throat</label>
+<label><input type="checkbox" name="symptoms" value="Rash"> Skin Rash</label>
+<label><input type="checkbox" name="symptoms" value="Difficulty Swallowing"> Difficulty Swallowing</label>
+<label><input type="checkbox" name="symptoms" value="Severe Bleeding"> Severe Bleeding</label>
+<label><input type="checkbox" name="symptoms" value="Loss of Consciousness"> Loss of Consciousness</label>
 </div>
 </div>
 
-<!-- MEDICAL HISTORY -->
+<!-- CHRONIC CONDITIONS -->
 <div class="section">
-<h3>🧪 Medical History</h3>
-<div class="grid">
-<label><input type="checkbox" name="diseases" value="Diabetes"> Diabetes</label>
-<label><input type="checkbox" name="diseases" value="BP"> Blood Pressure</label>
-<label><input type="checkbox" name="diseases" value="Heart"> Heart Disease</label>
-<label><input type="checkbox" name="diseases" value="Asthma"> Asthma</label>
-</div>
+<h3>🧬 Chronic Conditions & Medical History</h3>
+<label>Chronic Diseases (if any)</label>
+<textarea name="chronic_conditions" placeholder="e.g., Diabetes, Hypertension, Asthma, Heart Disease, etc. or 'None'"></textarea>
+
+<label>Current Medications</label>
+<textarea name="medications" placeholder="List all medications you're taking with doses"></textarea>
+
+<label>Known Allergies</label>
+<input type="text" name="allergies" placeholder="e.g., Penicillin, Shellfish, etc. or 'None'">
+
+<label>Recent Travel</label>
+<select name="recent_travel">
+  <option value="No">No recent travel</option>
+  <option value="Yes">Yes, within last 2 weeks</option>
+</select>
 </div>
 
-<!-- MEDICINES -->
-<div class="section">
-<label>💊 Current Medicines</label>
-<textarea name="medicines"></textarea>
-</div>
-
-<!-- DURATION -->
-<div class="section">
-<label>⏱️ Duration (days)</label>
-<input type="number" name="days">
-</div>
-
-<button type="submit">🧠 Analyze Health</button>
+<button type="submit">🧠 Analyze Health & Get Guidance</button>
 
 {% if emergency %}
-<div class="emergency">🚨 EMERGENCY — CONSULT DOCTOR IMMEDIATELY</div>
+<div class="emergency">🚨 <strong>EMERGENCY SITUATION DETECTED</strong><br>
+⚠️ SEEK IMMEDIATE MEDICAL ATTENTION<br>
+Call emergency services (Ambulance/108) NOW
+</div>
 {% endif %}
 
-{% if risk %}
-<div class="risk {{ risk_class }}">Health Risk Level: {{ risk }} ({{ risk_percent }}%)</div>
-{% endif %}
-
-{% if category %}
-<div class="risk medium">Likely Category: {{ category }}</div>
+{% if risk_level %}
+<div class="risk {% if risk_level == 'Critical' %}critical{% elif risk_level == 'High' %}high{% elif risk_level == 'Medium' %}medium{% else %}low{% endif %}">
+📊 Health Risk Level: <strong>{{ risk_level }}</strong>
+</div>
 {% endif %}
 
 {% if response %}
 <div class="response">{{ response | safe }}</div>
 {% endif %}
+
+<p style="text-align:center; margin-top:20px; font-size:12px; color:#6b7280;">
+<a href="/dashboard">Back to Dashboard</a>
+</p>
 
 </form>
 

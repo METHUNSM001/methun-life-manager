@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>AI Teacher</title>
+  <title>AI Teacher Pro</title>
 
   <style>
     * {
@@ -23,7 +23,7 @@
 
     .card {
       width: 100%;
-      max-width: 900px;
+      max-width: 1200px;
       background: #020617;
       border: 1px solid #1e40af;
       border-radius: 18px;
@@ -82,22 +82,99 @@
       transform: translateY(-1px);
     }
 
+    .section-header {
+      color: #60a5fa;
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 25px;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #1e40af;
+    }
+
+    .diagram-section {
+      margin-top: 28px;
+      padding: 20px;
+      background: rgba(37, 99, 235, 0.15);
+      border: 1px solid #1e40af;
+      border-radius: 14px;
+    }
+
+    .diagram-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .diagram-item {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid #3b82f6;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .diagram-item:hover {
+      transform: translateY(-5px);
+      border-color: #60a5fa;
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .diagram-item a {
+      display: inline-block;
+      padding: 10px 20px;
+      background: linear-gradient(to right, #2563eb, #1e40af);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    .diagram-item a:hover {
+      background: linear-gradient(to right, #1d4ed8, #1e3a8a);
+    }
+
+    .google-images-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #4285f4;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+
+    .google-images-btn:hover {
+      background: #357ae8;
+      transform: translateY(-2px);
+    }
+
     .response {
       margin-top: 28px;
       padding: 22px;
       background: rgba(30, 64, 175, 0.25);
       border: 1px solid #2563eb;
       border-radius: 14px;
-      line-height: 1.7;
+      line-height: 1.8;
+      max-height: 700px;
+      overflow-y: auto;
     }
 
     .response h1,
     .response h2,
     .response h3 {
       color: #bfdbfe;
+      margin-top: 20px;
     }
 
-    .response ul {
+    .response ul,
+    .response ol {
       padding-left: 20px;
     }
 
@@ -116,6 +193,15 @@
       border: 1px solid #1e40af;
     }
 
+    a {
+      color: #60a5fa;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
     @media (max-width: 600px) {
       .card {
         padding: 22px;
@@ -123,6 +209,10 @@
 
       h2 {
         font-size: 26px;
+      }
+
+      .diagram-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -132,23 +222,64 @@
 
 <form method="POST" class="card">
 
-  <h2>👩‍🏫 AI Math Teacher</h2>
+  <h2>👨‍🏫 AI Teacher Pro - All Subjects</h2>
 
-  <label>📘 Enter Question / Problem</label>
+  <label>📘 Enter Question / Topic / Problem</label>
   <textarea 
     name="topic" 
-    rows="4" 
-    placeholder="e.g. Solve 2x² - 5x + 3 = 0, Find derivative of sin(x), Explain integration, etc."
+    rows="5" 
+    placeholder="Ask any academic question:
+- Solve 2x² - 5x + 3 = 0
+- Explain photosynthesis
+- How did World War 2 start?
+- What is calculus?
+- etc."
     required></textarea>
 
   <button type="submit">🧠 Solve & Explain</button>
 
-  <!-- ✅ RESPONSE SHOWS ONLY AFTER SUBMIT -->
+  <!-- DIAGRAM SEARCH SECTION -->
+  {% if topic %}
+  <div class="diagram-section">
+    <div class="section-header">📊 Visual Learning Resources</div>
+    <p style="color: #93c5fd;">Find diagrams and visual explanations related to your question:</p>
+    <div class="diagram-grid">
+      <div class="diagram-item">
+        <strong>Google Images</strong>
+        <p>Search Google for diagrams, charts, and illustrations</p>
+        <a href="https://www.google.com/search?tbm=isch&q={{ topic | urlencode }}" target="_blank" class="google-images-btn">
+          🔍 View Diagrams
+        </a>
+      </div>
+      <div class="diagram-item">
+        <strong>Wikipedia</strong>
+        <p>Check Wikipedia for related visualizations and content</p>
+        <a href="https://en.wikipedia.org/w/api.php?action=opensearch&search={{ topic | urlencode }}" target="_blank" class="google-images-btn" style="background: #4a4a4a;">
+          📖 Search Wikipedia
+        </a>
+      </div>
+      <div class="diagram-item">
+        <strong>Khan Academy</strong>
+        <p>Find video lessons and visual tutorials</p>
+        <a href="https://www.khanacademy.org/search?page_search_query={{ topic | urlencode }}" target="_blank" class="google-images-btn" style="background: #1a73e8;">
+          🎥 Educational Videos
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- RESPONSE SHOWS ONLY AFTER SUBMIT -->
   {% if response %}
+  <div class="section-header">✅ Complete Solution & Explanation</div>
   <div class="response">
     {{ response | safe }}
   </div>
   {% endif %}
+
+  <p style="text-align:center; margin-top:20px; font-size:12px; color:#6b7280;">
+    <a href="/dashboard">Back to Dashboard</a>
+  </p>
 
 </form>
 
