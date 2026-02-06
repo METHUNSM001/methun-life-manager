@@ -1,0 +1,6 @@
+# Build configuration for Vercel
+[build]
+command = "pip install -r requirements.txt"
+
+# Python runtime
+python_version = "3.11"

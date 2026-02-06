@@ -1,10 +1,10 @@
 import sys
 import os
 
-# Add parent directory to path to import app
+# Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from app import app
 
-# Export the app for Vercel
-export = app.wsgi_app
+# Export app for Vercel serverless
+handler = app
